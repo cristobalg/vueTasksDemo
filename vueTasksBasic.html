@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Document</title>
+  </head>
+<body>
+  <div id="root">
+    <H1> Todas las tareas</h1>
+    <ul>
+      <span>
+        <li v-for="task in tasks" v-text="task.desc"></li><button :disabled="task.completada" @click="completar(task)" v-for="task in tasks">completar {{task.desc}}</button>
+      </span>
+    </ul>
+    <H1> Tareas completadas</h1>
+    <ul>
+      <li v-for="task in completedTasks" v-text="task.desc"></li><button :disabled="!task.completada" @click="descompletar(task)" v-for="task in tasks">descompletar {{task.desc}}</button>
+    </ul>
+  </div>
+  <script src="https://unpkg.com/vue"></script>
+
+  <script>
+
+    var app = new Vue({
+      el :'#root',
+      data : {
+        tasks : [
+          {desc : 'tarea 1', completada: false},
+          {desc : 'tarea 2', completada: true},
+          {desc : 'tarea 3', completada: false},
+          {desc : 'tarea 4', completada: false},
+          {desc : 'tarea 5', completada: false},]
+      },
+      methods : {
+        completar(t) {
+          t.completada = true;
+        },
+        descompletar(t) {
+          t.completada = false;
+        }
+      },
+      computed : {
+        completedTasks() {
+          return this.tasks.filter(task => task.completada);
+        }
+      }
+    });
+    </script>
+</body>
+</html>
